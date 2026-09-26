@@ -1,0 +1,7 @@
+import { useState } from 'react'
+import { initialStudents } from '../services/api'
+import DataTable from '../components/DataTable'
+import Toast from '../components/Toast'
+export default function Grades(){const[toast,setToast]=useState('');const[term,setTerm]=useState('Midterm');const rows=initialStudents.slice(0,6).map((s,i)=>({...s,subject:'IT201',grade:['1.25','1.50','2.00','1.75','—','1.25'][i]}));const columns=[{key:'id',label:'STUDENT ID'},{key:'name',label:'STUDENT NAME'},{key:'subject',label:'SUBJECT'},{key:'grade',label:'GRADE',render:v=><strong>{v}</strong>},{key:'action',label:'STATUS',render:(_,r)=><span className={`status ${r.grade==='—'?'pending':'enrolled'}`}>{r.grade==='—'?'Not encoded':'Encoded'}</span>}]
+ return <div className="page-stack"><div className="page-heading"><div><h1>Grades</h1><p>View and monitor student grade encoding for the selected grading period.</p></div><button className="btn-primary" onClick={()=>setToast('Grade export is a demo. Connect a report API to enable it.')}>Export Grades</button></div><div className="filter-line"><label>Grading period<select value={term} onChange={e=>setTerm(e.target.value)}><option>Midterm</option><option>Final</option><option>Prelim</option></select></label><span className="count-chip">{term} · AY 2026–2027</span></div><section className="panel"><DataTable columns={columns} rows={rows}/></section><Toast message={toast} onClose={()=>setToast('')}/></div>
+}

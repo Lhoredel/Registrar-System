@@ -1,0 +1,5 @@
+import { Download, FileText, Users, GraduationCap, ClipboardList } from 'lucide-react'
+import Toast from '../components/Toast'
+import { useState } from 'react'
+const reports=[['Student Masterlist','Student profile and program list',Users],['Enrollment Summary','Enrollment status by program and year',ClipboardList],['Faculty Directory','Faculty and department directory',GraduationCap],['Grade Submission Report','Grade encoding completion report',FileText]]
+export default function Reports(){const[toast,setToast]=useState('');return <div className="page-stack"><div className="page-heading"><div><h1>Reports</h1><p>Generate and export registrar office summaries.</p></div></div><div className="report-grid">{reports.map(([title,desc,Icon])=><article className="panel report-card" key={title}><div className="report-icon"><Icon size={22}/></div><h2>{title}</h2><p>{desc}</p><button className="btn-secondary" onClick={()=>setToast(`${title}: connect your backend to generate PDF/CSV.`)}><Download size={16}/> Generate report</button></article>)}</div><Toast message={toast} onClose={()=>setToast('')}/></div>}
